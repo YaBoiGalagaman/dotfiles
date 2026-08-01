@@ -1,0 +1,12 @@
+background-opacity = 0.9
+command = /usr/bin/fish
+theme = Catppuccin Macchiato
+
+font-family = NotoSansMono-Regular
+font-size = 11
+
+
+confirm-close-surface = false
+
+mouse-scroll-multiplier = .5
+

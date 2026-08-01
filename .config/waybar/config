@@ -1,0 +1,117 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/media", "tray", "cpu", "memory", "custom/gpu", "custom/vram", "custom/netrate", "pulseaudio"],
+
+  "margin-top": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+
+  "tray": {
+      // "icon-size": 21,
+      "spacing": 10,
+      "show-if-empty": false
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "disable-scroll": true,
+    "sort-by-number": true,
+    "all-outputs": false,
+  
+    "persistent-workspaces": {
+      "HDMI-A-1": [1,2,3],
+      "DP-2": [4,5,6],
+      "DP-1": [7,8,9]
+    },
+
+	"active-only": false,
+  
+    "format-icons": {
+      "default": ""
+    }
+  },
+
+  "custom/media": {
+    "exec": "~/.config/waybar/scripts/media.sh",
+    "interval": 1,
+    "return-type": "json",
+    "format": "{text}",
+    "on-click-middle": "playerctl -p $(cat /tmp/waybar_current_player) play-pause",
+    "on-click": "~/.config/waybar/scripts/media.sh next",
+    "on-click-right": "~/.config/waybar/scripts/media.sh prev"
+  },
+
+
+  "clock": {
+      "format": "{:%D %I:%M %p}",
+      "tooltip-format": "{:%A, %B %d, %Y}",
+      "interval": 60,
+      "on-click": "waylandar-dashboard",
+      "on-click-middle": "firefox --new-window https://calendar.google.com/calendar/u/0/r"
+    },
+	
+  "network": {
+      // "interface": "wlp2s0", // (Optional) To force the use of this interface
+      "format-wifi": "　{signalStrength}%",
+      "format-ethernet": "{ifname}: {ipaddr}/{cidr} ethernet",
+      "format-disconnected": "⚠"
+  },
+  
+  "pulseaudio": {
+          //"scroll-step": 1,
+          "format": "󰕾 {volume}%",
+          "format-bluetooth": "{volume}% {icon}",
+          "format-muted": "",
+          "format-icons": {
+              "headphones": "",
+              "handsfree": "",
+              "headset": "",
+              "phone": "",
+              "portable": "",
+              "car": "",
+              "default": ["", ""]
+          },
+          "on-click-middle": "pavucontrol",
+          "on-click": "~/.config/waybar/scripts/audioOutputSwitch.sh"
+      },
+  "cpu": {
+      "format": " {usage}%",
+      "interval": 2,	
+      "tooltip": true
+  },
+
+  "memory": {
+    "format": " {percentage}%",
+    "interval": 2
+  },
+
+  "custom/gpu": {
+      "exec": "~/.config/waybar/scripts/gpu_usage.sh",
+      "interval": 2,
+      "return-type": "json",
+      "format": "{text}",
+      "tooltip": true
+  },
+  
+  "custom/vram": {
+      "exec": "~/.config/waybar/scripts/vram_usage.sh",
+      "interval": 2,
+      "return-type": "json",
+      "format": "{text}",
+      "tooltip": true
+  },
+
+  "custom/netrate": {
+      "exec": "~/.config/waybar/scripts/netrate.sh",
+      "interval": 1,
+      "return-type": "json",
+      "format": "{text}"
+  }
+  
+  
+}

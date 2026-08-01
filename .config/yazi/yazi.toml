@@ -1,0 +1,38 @@
+[opener]
+edit = [
+  { run = 'micro "$@"', block = true },
+]
+
+Gwenview = [
+  { run = 'gwenview "$@"', orphan = true, desc = "Open with Gwenview", for = "linux" },
+]
+
+qimgv = [
+  { run = 'qimgv "$@"', orphan = true, desc = "Open with qimgv", for = "linux" },
+]
+
+libreoffice = [
+  { run = 'libreoffice "$@"', orphan = true, desc = "Open with LibreOffice" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "image/*", use = [ "qimgv", "Gwenview" ] },
+
+  { url = "*.jpg",  use = [ "qimgv" ] },
+  { url = "*.jpeg", use = [ "qimgv" ] },
+  { url = "*.png",  use = [ "qimgv" ] },
+  { url = "*.webp", use = [ "qimgv" ] },
+  { url = "*.gif",  use = [ "qimgv" ] },
+  { url = "*.bmp",  use = [ "qimgv" ] },
+  { url = "*.tiff", use = [ "qimgv" ] },
+  { url = "*.odt",  use = [ "libreoffice"] },
+  { url = "*.docx", use = [ "libreoffice"] },
+]
+
+[mgr]
+linemode = "size"
+
+[preview]
+max_width  = 1024
+max_height = 1024
