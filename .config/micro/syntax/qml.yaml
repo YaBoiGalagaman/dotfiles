@@ -1,0 +1,70 @@
+filetype: qml
+
+detect:
+    filename: "\\.(qml|qmltypes|qbs)$"
+
+rules:
+    # Comments first so operators inside comments do not steal highlighting
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules:
+            - todo: "\\b(TODO|FIXME|HACK|NOTE|XXX):?"
+    - comment:
+        start: "//"
+        end: "$"
+        rules:
+            - todo: "\\b(TODO|FIXME|HACK|NOTE|XXX):?"
+
+    # Strings
+    - constant.string:
+        start: '"'
+        end: '"'
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([\\\\'\"abfnrtv]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4})"
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([\\\\'\"abfnrtv]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4})"
+    - constant.string:
+        start: "`"
+        end: "`"
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([\\\\`'\"abfnrtv]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4})"
+            - symbol: "\\$\\{[^}]*\\}"
+
+    # QML / JS keywords
+    - statement: "\\b(import|pragma|as|property|readonly|alias|default|required|signal|function|on[A-Z][A-Za-z0-9_]*|if|else|switch|case|default|for|while|do|break|continue|return|try|catch|finally|throw|new|delete|typeof|void|instanceof|in|of|yield|await|async|from|export)\\b"
+    - statement: "\\b(var|let|const)\\b"
+
+    # Literals
+    - constant.bool.true: "\\btrue\\b"
+    - constant.bool.false: "\\bfalse\\b"
+    - constant: "\\b(null|undefined|NaN|Infinity)\\b"
+
+    # Numbers: decimal, hex, binary, octal; supports JS suffix-ish exponents
+    - constant.number: "\\b(0[xX][0-9A-Fa-f]+|0[bB][01]+|0[oO][0-7]+|([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][+-]?[0-9]+)?)\\b"
+
+    # Common QML / Qt types and JS builtin objects
+    - type: "\\b(QtObject|Item|Rectangle|Text|Image|BorderImage|AnimatedImage|MouseArea|MultiPointTouchArea|Flickable|Loader|Component|Connections|Binding|State|Transition|PropertyChanges|Behavior|NumberAnimation|PropertyAnimation|SequentialAnimation|ParallelAnimation|PauseAnimation|SmoothedAnimation|SpringAnimation|ListModel|ListElement|ListView|GridView|PathView|Repeater|DelegateModel|Column|Row|Grid|Flow|StackView|SwipeView|TabBar|Timer|Window|ApplicationWindow|Popup|Dialog|Page|Button|Label|TextField|TextArea|ComboBox|Slider|CheckBox|RadioButton|Switch|Menu|MenuItem|Action|Shortcut|Keys|FocusScope|ShaderEffect|Canvas|FontLoader|Settings|Process|ShellRoot|PanelWindow|Variants|Qt|console|Math|Date|Array|Object|String|Number|Boolean|RegExp|JSON|Promise|Map|Set)\\b"
+
+    # QML ids and object declarations
+    - identifier.var: "\\bid\\s*:\\s*[A-Za-z_][A-Za-z0-9_]*"
+    - type: "(^|[\\s;{}])([A-Z][A-Za-z0-9_]*)\\s*\\{"
+
+    # Property names before ':' in QML bindings / object literals
+    - identifier: "\\b[A-Za-z_][A-Za-z0-9_]*\\s*:"
+
+    # Function names before '(' after function keyword, and calls generally
+    - identifier: "\\b[A-Za-z_][A-Za-z0-9_]*\\s*\\("
+
+    # Common enum-ish constants: Qt.AlignCenter, Text.ElideRight, etc.
+    - constant: "\\b[A-Z][A-Za-z0-9_]*(\\.[A-Z][A-Za-z0-9_]*)+\\b"
+
+    # Brackets and operators
+    - symbol.brackets: "[(){}\\[\\]]"
+    - symbol.operator: "(===|!==|==|!=|<=|>=|=>|&&|\\|\\||\\?\\?|\\?\\.|\\+\\+|--|<<|>>|>>>|[-+*/%=&|^~!<>?:.,;])"

@@ -1,0 +1,13 @@
+{
+    "Alt-/": "lua:comment.comment",
+    "CtrlUnderscore": "lua:comment.comment",
+    "Ctrl-g": 'command-edit:goto ',
+    "Ctrl-l": "command:help",
+    "Ctrl-j": "command-edit:jump +",
+    "Ctrl-k": "command-edit:jump -",
+    "Alt-h": "SelectWordLeft",
+    "Alt-l": "SelectWordRight",
+    "Ctrl-Alt-Up": "ScrollUp,ScrollUp,ScrollUp", 
+    "Ctrl-Alt-Down": "ScrollDown,ScrollDown,ScrollDown",
+    "Ctrl-Alt-P": "command-edit: replaceall " 
+}

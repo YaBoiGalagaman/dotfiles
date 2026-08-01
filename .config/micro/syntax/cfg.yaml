@@ -1,0 +1,38 @@
+filetype: kspcfg
+
+detect:
+    filename: "\\.(cfg|CFG)$"
+
+rules:
+    - comment:
+        start: "//"
+        end: "$"
+
+    # KSP node names
+    - type: "^[ \t]*(PART|MODEL|NODE|MODULE|RESOURCE|EFFECTS|INTERNAL|PROP|AGENT|CONTRACT_TYPE|Body|CelestialBody|Orbit|Atmosphere|ScaledVersion|PQS|PQSCity|BIOME)[ \t]*$"
+
+    # Braces
+    - symbol: "[{}]"
+
+    # Assignment keys: highlight the whole `key =`
+    - identifier: "^[ \t]*[A-Za-z_][A-Za-z0-9_.-]*[ \t]*="
+
+    # Values after equals.
+    # Micro/RE2 cannot do lookbehind, so this includes the equals sign.
+    - constant: "=[ \t]*[^/\n\r{}]+"
+
+    # Numbers, drawn on top of values
+    - constant.number: "\\b[-+]?[0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?\\b"
+
+    # Booleans
+    - constant.bool: "\\b(true|false|True|False|TRUE|FALSE)\\b"
+
+    # Quoted strings
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+
+    # ModuleManager patch operators/tags
+    - special: "[@!%#&~+:]"
+    - preproc: "\\b(FIRST|BEFORE|FOR|AFTER|FINAL|HAS|NEEDS)\\b"

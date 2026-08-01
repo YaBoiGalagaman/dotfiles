@@ -1,0 +1,9 @@
+{
+    "*.pdsl": {
+        "comment.type": "// %s"
+    },
+    "colorscheme": "catppuccin-macchiato-transparent",
+    "relativeruler": true,
+    "softwrap": true,
+    "wordwrap": true
+}

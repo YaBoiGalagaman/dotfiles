@@ -1,0 +1,39 @@
+filetype: pdsl
+
+detect:
+    filename: "\\.(pdsl|promptdsl)$"
+
+rules:
+    - preproc: "#import\\b"
+
+    - statement: "\\b(const|function)\\b"
+
+    # Function names
+    - identifier: "\\b[a-z_][A-Za-z0-9_]*\\s*\\{"
+
+    # Constants / references
+    - constant: "\\b[A-Z][A-Z0-9_]*\\b"
+    - constant: "@[A-Z][A-Z0-9_]*\\b"
+
+    # Weights / numbers
+    - constant.number: ":[0-9]+(\\.[0-9]+)?"
+    - constant.number: "\\b[0-9]+(\\.[0-9]+)?\\b"
+
+    # Strings
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules: []
+
+    # Symbols
+    - symbol.operator: "="
+    - symbol.brackets: "[{}()]"
+    - symbol: ","
+
+    # Prompt text
+    - constant.string: "[a-zA-Z][a-zA-Z0-9_ -]*,"
+    - constant.string: "[a-zA-Z][a-zA-Z0-9_ -]*:"
+
+    # Comments last so they override prompt-text matching
+    - comment: "//.*$"
