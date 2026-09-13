@@ -1,18 +1,18 @@
 [opener]
 edit = [
-  { run = 'micro "$@"', block = true },
+  { run = 'micro %s', block = true },
 ]
 
 Gwenview = [
-  { run = 'gwenview "$@"', orphan = true, desc = "Open with Gwenview", for = "linux" },
+  { run = 'gwenview %s', orphan = true, desc = "Open with Gwenview", for = "linux" },
 ]
 
 qimgv = [
-  { run = 'qimgv "$@"', orphan = true, desc = "Open with qimgv", for = "linux" },
+  { run = 'qimgv %s', orphan = true, desc = "Open with qimgv", for = "linux" },
 ]
 
 libreoffice = [
-  { run = 'libreoffice "$@"', orphan = true, desc = "Open with LibreOffice" },
+  { run = 'libreoffice %s', orphan = true, desc = "Open with LibreOffice" },
 ]
 
 [open]
